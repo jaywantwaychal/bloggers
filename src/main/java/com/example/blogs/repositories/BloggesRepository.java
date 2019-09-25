@@ -13,4 +13,7 @@ public interface BloggesRepository extends JpaRepository<BlogEntity, Long> {
 
 	@Query("FROM BlogEntity BG WHERE BG.userEntity.user_id = ?1")
 	public List<BlogEntity> findBlogEntitiesByUserEntity(long userEntity);
+	
+	@Query("FROM BlogEntity BG WHERE BG.categoryEntity.category_id = ?1")
+	public List<BlogEntity> getAllAvailableBlogsForCategory(long category_id);
 }

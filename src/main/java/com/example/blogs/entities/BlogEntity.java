@@ -34,7 +34,7 @@ public class BlogEntity {
 	@JoinColumn(name="category_id")
 	private CategoryEntity categoryEntity;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="user_id")
 	private UserEntity userEntity;
 	

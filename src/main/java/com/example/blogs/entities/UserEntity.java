@@ -73,5 +73,8 @@ public class UserEntity {
 		this.creation_date = creation_date;
 	}
 	
-	
+	public void addBlogEntities(BlogEntity blog) {
+		blogEntities.add(blog);
+		blog.setUserEntity(this);
+    }
 }
