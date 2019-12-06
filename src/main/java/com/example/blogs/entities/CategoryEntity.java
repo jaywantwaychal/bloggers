@@ -63,10 +63,10 @@ public class CategoryEntity {
 		this.creation_date = creation_date;
 	}
 	
-	public void addBlogEntities(BlogEntity blog) {
-		blogEntities.add(blog);
-        blog.setCategoryEntity(this);
-    }
+	/*
+	 * public void addBlogEntities(BlogEntity blog) { blogEntities.add(blog);
+	 * blog.setCategoryEntity(this); }
+	 */
 	/*
 	 * public void removeComment(PostComment comment) { comments.remove(comment);
 	 * comment.setPost(null); }

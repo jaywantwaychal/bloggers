@@ -3,14 +3,20 @@ package com.example.blogs.entities;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -22,8 +28,11 @@ public class UserEntity {
 	@SequenceGenerator(name="user_sequence", sequenceName="user_sequence", allocationSize=100)
 	private long user_id;
 	
-	private String user_name;
-	private String user_password;
+	@NotEmpty
+	private String username;
+	
+	@NotEmpty
+	private String userpassword;
 	
 	@OneToMany(mappedBy="userEntity")
 	@JsonIgnore
@@ -32,6 +41,16 @@ public class UserEntity {
 	@OneToMany(mappedBy="userCommentEntity")
 	@JsonIgnore
 	private List<CommentEntity> comments;
+	
+	/*
+	 * @ManyToMany(cascade=CascadeType.MERGE)
+	 * 
+	 * @JoinTable( name="user_role", joinColumns= {@JoinColumn(name="USER_ID",
+	 * referencedColumnName="user_id")}, inverseJoinColumns=
+	 * {@JoinColumn(name="ROLE_ID", referencedColumnName="role_id")} )
+	 */
+	//private List<Role> roles;
+	private String roles;
 	
 	@Temporal(TemporalType.DATE)
 	private Date creation_date;
@@ -42,18 +61,7 @@ public class UserEntity {
 	public void setUser_id(long user_id) {
 		this.user_id = user_id;
 	}
-	public String getUser_name() {
-		return user_name;
-	}
-	public void setUser_name(String user_name) {
-		this.user_name = user_name;
-	}
-	public String getUser_password() {
-		return user_password;
-	}
-	public void setUser_password(String user_password) {
-		this.user_password = user_password;
-	}
+	
 	public List<BlogEntity> getBlogEntities() {
 		return blogEntities;
 	}
@@ -72,9 +80,50 @@ public class UserEntity {
 	public void setCreation_date(Date creation_date) {
 		this.creation_date = creation_date;
 	}
+
+	/*
+	 * public List<Role> getRoles() { return roles; } public void
+	 * setRoles(List<Role> roles) { this.roles = roles; }
+	 */
+	/**
+	 * @return the username
+	 */
+	public String getUsername() {
+		return username;
+	}
+	/**
+	 * @param username the username to set
+	 */
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	/**
+	 * @return the userpassword
+	 */
+	public String getUserpassword() {
+		return userpassword;
+	}
+	/**
+	 * @param userpassword the userpassword to set
+	 */
+	public void setUserpassword(String userpassword) {
+		this.userpassword = userpassword;
+	}
+	/**
+	 * @return the roles
+	 */
+	public String getRoles() {
+		return roles;
+	}
+	/**
+	 * @param roles the roles to set
+	 */
+	public void setRoles(String roles) {
+		this.roles = roles;
+	}
 	
-	public void addBlogEntities(BlogEntity blog) {
-		blogEntities.add(blog);
-		blog.setUserEntity(this);
-    }
+	/*
+	 * public void addBlogEntities(BlogEntity blog) { blogEntities.add(blog);
+	 * blog.setUserEntity(this); }
+	 */
 }
